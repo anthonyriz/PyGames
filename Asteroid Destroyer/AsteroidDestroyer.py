@@ -52,11 +52,11 @@ while True:
         if event.type == pg.QUIT:      
             pg.quit()
             exit(0)
-        if event.type == pg.KEYDOWN:                #laser shooter (done)
-            if event.key == pg.K_SPACE:     #spacebar to shoot laser (done)
+        if event.type == pg.KEYDOWN:                #laser shooter 
+            if event.key == pg.K_SPACE:     #spacebar to shoot laser
                 laser_pos = laser.get_rect(midbottom = ship_pos.midtop)   
                 new_laser.append(laser_pos) 
-        if event.type == asteroid_timer:       #asteroid spawner (done)
+        if event.type == asteroid_timer:       #asteroid spawner 
             asteroid_pos = asteroid.get_rect(center = (random_x, random_y))
             random_x = random.randint(0, 1280)
             random_y = random.randint(-100, 0)
@@ -64,19 +64,19 @@ while True:
  
     keys = pg.key.get_pressed()
 
-    if keys [pg.K_w] and ship_pos.y > 0:  #w to go up (done)
+    if keys [pg.K_w] and ship_pos.y > 0:  #w to go up 
         ship_pos.y -= ship_speed
         window.blit(ship, ship_pos)
 
-    if keys [pg.K_s] and ship_pos.y < 650: #s to go down (done)
+    if keys [pg.K_s] and ship_pos.y < 650: #s to go down
         ship_pos.y += ship_speed
         window.blit(ship, ship_pos)
 
-    if keys [pg.K_a] and ship_pos.x > 0:    #a to go left (done)
+    if keys [pg.K_a] and ship_pos.x > 0:    #a to go left
         ship_pos.x -= ship_speed
         window.blit(ship, ship_pos)
 
-    if keys [pg.K_d] and ship_pos.x < 1215:     #d to go right (done)
+    if keys [pg.K_d] and ship_pos.x < 1215:     #d to go right
         ship_pos.x += ship_speed
         window.blit(ship, ship_pos)
 
@@ -92,34 +92,34 @@ while True:
     window.blit(gameOver, gameOver_pos)
     
                 
-    laser_pos.y -= 10           #laser speed (good)
+    laser_pos.y -= 10           #laser speed
 
-    for i in new_laser:         #lasers (DONE)
+    for i in new_laser:         #lasers
         window.blit(laser, i)
         i.y -= 10
         if i.bottom < 0:
             new_laser.remove(i)
         for j in new_asteroid:
-            if i.colliderect(j):    #laser and asteroid collision (FIX lag issue)
+            if i.colliderect(j):    #laser and asteroid collision
                 new_laser.remove(i)
                 new_asteroid.remove(j)
                 score += 1 
                 score_text = font1.render('Score: %i' %score, False, 'White') 
 
-    for j in new_asteroid:          #asteroid remover when it passes screen(DONE)
+    for j in new_asteroid:          #asteroid remover when it passes screen
         window.blit(asteroid, j)
         j.y += (2*level)
         if j.bottom > 815:
             new_asteroid.remove(j)
 
-    for k in new_asteroid:              #ship collision (FIX)
+    for k in new_asteroid:              #ship collision 
         asteroid_pos = k
         if ship_pos.colliderect(asteroid_pos):
             lives -= 1
             lives_text = font1.render('Lives: %i' %lives, False, 'White')
             new_asteroid.remove(k)
     
-    if score == 10:          # if score is reached, next level is played (DONE) #CHANGE SCORE HERE
+    if score == 10:          # if score is reached, next level is played #CHANGE SCORE HERE
         score = 0   
         level += 1
         spawn_time -= 500
